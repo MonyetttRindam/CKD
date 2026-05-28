@@ -3,5 +3,5 @@ pandas
 numpy
 scikit-learn
 joblib
-huggingface_hub
 xgboost
+huggingface_hub
