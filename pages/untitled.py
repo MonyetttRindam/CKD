@@ -23,7 +23,7 @@ st.markdown("Visualisasi interaktif dataset **sebelum dibersihkan** (raw data)."
 # ------------------------------------------------------------
 @st.cache_data
 def load_data():
-    df = pd.read_csv("ckd_dataset.csv")
+    df = pd.read_csv("CKD_NHANES_2021_2023.csv")
     return df
 
 try:
