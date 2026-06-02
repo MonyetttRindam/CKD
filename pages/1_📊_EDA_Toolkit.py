@@ -9,7 +9,7 @@ st.markdown("Dataset **mentah (sebelum preprocessing)**. Gunakan panel kiri untu
 # Load dataset
 @st.cache_data
 def load_data():
-    df = pd.read_csv("CKD_NHANES_2021_2023")
+    df = pd.read_csv("CKD_NHANES_2021_2023.csv")
     return df
 
 try:
