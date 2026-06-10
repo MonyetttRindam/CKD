@@ -100,12 +100,22 @@ html, body, [class*="css"] {
 }
 
 /* Sidebar */
-section[data-testid="stSidebar"] {
+/* Opsi di dalam dropdown selectbox sidebar */
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {
     background-color: #1B3A6B !important;
+    color: #FFFFFF !important;
 }
-section[data-testid="stSidebar"] * {
+
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="popover"] li {
+    background-color: #1B3A6B !important;
     color: #E8EFF8 !important;
 }
+
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="popover"] li:hover {
+    background-color: #1A7A8A !important;
+    color: #FFFFFF !important;
+}
+
 section[data-testid="stSidebar"] .stSelectbox label,
 section[data-testid="stSidebar"] .stSlider label,
 section[data-testid="stSidebar"] .stCheckbox label,
