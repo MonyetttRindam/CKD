@@ -195,6 +195,7 @@ plot_type = st.sidebar.selectbox(
      "📋 Summary Statistics"],
     label_visibility="collapsed"
     /* Opsi di dalam dropdown selectbox sidebar */
+)
 section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {
     background-color: #1B3A6B !important;
     color: #FFFFFF !important;
@@ -209,8 +210,6 @@ section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="popover"] li:hov
     background-color: #1A7A8A !important;
     color: #FFFFFF !important;
 }
-)
-
 st.sidebar.markdown("---")
 st.sidebar.markdown("### ⚙️ Opsi Plot")
 
