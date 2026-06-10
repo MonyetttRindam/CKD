@@ -21,9 +21,124 @@ REPO_ID = "MonyetttRindam/ckdbinary"
 # ------------------------------------------------------------
 # Konfigurasi halaman
 # ------------------------------------------------------------
-st.set_page_config(page_title="CKD Early Screening", layout="centered")
-st.title("🧠 Skrining Awal Penyakit Ginjal Kronis (CKD)")
-st.markdown("Isi data pasien berikut untuk mengetahui risiko CKD dan staging keparahan.")
+st.set_page_config(page_title="CKD Early Screening", layout="centered", page_icon="🫁")
+
+# ------------------------------------------------------------
+# Custom CSS
+# ------------------------------------------------------------
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Global ── */
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+.stApp {
+    background-color: #F0F4F8;
+}
+
+/* ── Header hero ── */
+.ckd-hero {
+    background: linear-gradient(135deg, #1B3A6B 0%, #1A7A8A 100%);
+    border-radius: 16px;
+    padding: 36px 40px 30px 40px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 20px rgba(27, 58, 107, 0.18);
+}
+.ckd-hero h1 {
+    color: #FFFFFF;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+}
+.ckd-hero p {
+    color: #B8DCEB;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ── Section cards ── */
+.section-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px 28px 20px 28px;
+    margin-bottom: 20px;
+    border: 1px solid #DDE4EE;
+    box-shadow: 0 2px 8px rgba(27, 58, 107, 0.06);
+}
+.section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1A7A8A;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E3EDF5;
+}
+
+/* ── Input labels ── */
+label, .stSelectbox label, .stNumberInput label {
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    color: #2D3A4E !important;
+}
+
+/* ── Number inputs & selects ── */
+.stNumberInput input, .stSelectbox div[data-baseweb="select"] {
+    border-radius: 8px !important;
+    border-color: #C8D8E8 !important;
+    font-size: 0.9rem !important;
+}
+.stNumberInput input:focus {
+    border-color: #1A7A8A !important;
+    box-shadow: 0 0 0 2px rgba(26, 122, 138, 0.15) !important;
+}
+
+/* ── Submit button ── */
+.stFormSubmitButton button {
+    background: linear-gradient(135deg, #1B3A6B, #1A7A8A) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 14px 32px !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    transition: opacity 0.2s ease !important;
+    letter-spacing: 0.2px !important;
+}
+.stFormSubmitButton button:hover {
+    opacity: 0.9 !important;
+}
+
+/* ── Result boxes ── */
+.stSuccess, .stError, .stInfo {
+    border-radius: 10px !important;
+    font-size: 0.95rem !important;
+}
+
+/* ── Divider ── */
+hr {
+    border: none;
+    border-top: 1px solid #DDE4EE;
+    margin: 4px 0 16px 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Hero header
+st.markdown("""
+<div class="ckd-hero">
+    <h1>🫁 Skrining Awal Penyakit Ginjal Kronis</h1>
+    <p>Masukkan data klinis dan demografis pasien untuk mendeteksi risiko CKD serta staging keparahannya.</p>
+</div>
+""", unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Load model dan scaler
@@ -256,7 +371,7 @@ def preprocess_input(data: pd.DataFrame) -> pd.DataFrame:
 # Form input data
 # ------------------------------------------------------------
 with st.form("input_form"):
-    st.subheader("📋 Data Demografi & Klinis")
+    st.markdown('<div class="section-card"><div class="section-title">📋 Data Demografi &amp; Klinis</div>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -276,7 +391,8 @@ with st.form("input_form"):
         bp_systolic = st.number_input("Tekanan darah sistolik (mmHg)", min_value=70, max_value=250, value=120, step=1)
         bp_diastolic = st.number_input("Tekanan darah diastolik (mmHg)", min_value=40, max_value=150, value=80, step=1)
 
-    st.subheader("🧪 Hasil Laboratorium")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-card"><div class="section-title">🧪 Hasil Laboratorium</div>', unsafe_allow_html=True)
     col3, col4 = st.columns(2)
     with col3:
         phosphorus = st.number_input("Fosfor (mg/dL)", min_value=1.0, max_value=9.0, value=3.5, step=0.1)
@@ -288,12 +404,15 @@ with st.form("input_form"):
         insulin_use = st.selectbox("Penggunaan insulin", [("Ya", 1), ("Tidak", 0)], format_func=lambda x: x[0])[1]
         diabetes_pills = st.selectbox("Obat diabetes oral", [("Ya", 1), ("Tidak", 0)], format_func=lambda x: x[0])[1]
 
-    st.subheader("🚬 Riwayat Merokok")
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-card"><div class="section-title">🚬 Riwayat Merokok</div>', unsafe_allow_html=True)
     col5, col6 = st.columns(2)
     with col5:
         ever_smoked = st.selectbox("Pernah merokok (minimal 100 batang seumur hidup)?", [("Ya", 1), ("Tidak", 2)], format_func=lambda x: x[0])[1]
     with col6:
         current_smoker = st.selectbox("Saat ini merokok?", [("Ya, setiap hari atau kadang", 1), ("Tidak, sudah berhenti", 2), ("Tidak pernah", 3)], format_func=lambda x: x[0])[1]
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
     submitted = st.form_submit_button("🔍 Lakukan Skrining")
 
@@ -331,22 +450,23 @@ if submitted:
         # Prediksi binary (CKD atau tidak)
         pred_binary = model_binary.predict(X_processed)[0]
 
-        st.subheader("📊 Hasil Skrining")
+        st.markdown("---")
+        st.markdown('<p style="font-size:0.8rem; font-weight:600; color:#1A7A8A; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:12px;">📊 Hasil Skrining</p>', unsafe_allow_html=True)
         if pred_binary == 0:
-            st.success("✅ **TIDAK TERDETEKSI CKD** (Ginjal dalam kondisi normal)")
+            st.success("✅ **TIDAK TERDETEKSI CKD** — Ginjal dalam kondisi normal")
             st.balloons()
         else:
-            st.error("⚠️ **TERDETEKSI CKD** - Risiko penyakit ginjal kronis")
+            st.error("⚠️ **TERDETEKSI CKD** — Risiko penyakit ginjal kronis ditemukan")
             # Lanjut ke staging
             pred_stage = model_multiclass.predict(X_processed)[0]
             # Mapping staging: 0=bahaya, 1=cukup bahaya, 2=batas aman
             stage_map = {
-                0: "🔴 **Bahaya** (Stadium lanjut, perlu penanganan segera)",
-                1: "🟠 **Cukup Bahaya** (Stadium sedang, konsultasi nefrologi)",
-                2: "🟢 **Batas Aman** (Stadium awal, modifikasi gaya hidup)"
+                0: "🔴 **Bahaya** — Stadium lanjut, perlu penanganan segera",
+                1: "🟠 **Cukup Bahaya** — Stadium sedang, konsultasi nefrologi",
+                2: "🟢 **Batas Aman** — Stadium awal, modifikasi gaya hidup"
             }
-            st.markdown(f"### Staging Keparahan CKD: {stage_map[pred_stage]}")
-            st.info("Segera konsultasikan hasil ini ke dokter spesialis ginjal untuk penanganan lebih lanjut.")
+            st.markdown(f"**Staging Keparahan CKD:** {stage_map[pred_stage]}")
+            st.info("ℹ️ Segera konsultasikan hasil ini ke dokter spesialis ginjal untuk penanganan lebih lanjut.")
 
         # Tampilkan probabilitas? Tidak diminta, tapi bisa ditambahkan opsional
         # if st.checkbox("Tampilkan probabilitas prediksi"):
