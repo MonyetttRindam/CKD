@@ -106,7 +106,6 @@ section[data-testid="stSidebar"] {
 section[data-testid="stSidebar"] * {
     color: #E8EFF8 !important;
 }
-
 section[data-testid="stSidebar"] .stSelectbox label,
 section[data-testid="stSidebar"] .stSlider label,
 section[data-testid="stSidebar"] .stCheckbox label,
@@ -195,8 +194,8 @@ plot_type = st.sidebar.selectbox(
      "🔥 Correlation Heatmap", "📐 Pair Plot",
      "📋 Summary Statistics"],
     label_visibility="collapsed"
-    /* Opsi di dalam dropdown selectbox sidebar */
 )
+
 st.sidebar.markdown("---")
 st.sidebar.markdown("### ⚙️ Opsi Plot")
 
